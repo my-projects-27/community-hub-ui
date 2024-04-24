@@ -1,0 +1,79 @@
+<form class="search-family-form" style="margin-bottom: 20px;">
+    <div class="row">
+        <div class="col-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Unit</mat-label>
+                <mat-select [(ngModel)]="familySearch.unitId" name="unitId">
+                  <mat-option *ngFor="let u of dropdownService.unitList" value="{{u.id}}">{{u.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Family Number</mat-label>
+                <input matInput [(ngModel)]="familySearch.familyId" name="familyId">
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Family Name</mat-label>
+                <input matInput [(ngModel)]="familySearch.familyName" name="familyName">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Classification</mat-label>
+                <mat-select [(ngModel)]="familySearch.classification" name="classification">
+                  <mat-option *ngFor="let u of dropdownService.staticDropdowns.classifications" value="{{u.id}}">{{u.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Ward Number</mat-label>
+                <input matInput [(ngModel)]="familySearch.wardNumber" name="wardNumber">
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Bank Ward Number</mat-label>
+                <input matInput [(ngModel)]="familySearch.bankWardNumber" name="bankWardNumber">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Post Office</mat-label>
+                <input matInput [(ngModel)]="familySearch.postOffice" name="postOffice">
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>Pincode</mat-label>
+                <input matInput type="number" [(ngModel)]="familySearch.pinCode" name="pinCode">
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field >
+                <mat-label>By Address</mat-label>
+                <textarea matInput placeholder="Ex. 100 Main St" rows="1" [(ngModel)]="familySearch.address" name="address"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <button mat-raised-button color="primary" class="search-button" (click)="searchFamily()">Search</button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-10">
+        <ag-grid-angular
+        style="width:100%" class="ag-theme-alpine" rowSelection="single" [defaultColDef]="defaultColDef"
+        [columnDefs]="gridColDef" [pagination]="true" [gridOptions]="gridOptions"
+        (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'"
+    ></ag-grid-angular>
+    </div>
+</div>

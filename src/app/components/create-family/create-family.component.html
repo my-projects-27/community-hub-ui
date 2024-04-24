@@ -1,0 +1,170 @@
+
+
+    <form class="family-form">
+        <div class="row" >
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Branch</mat-label>
+                            <mat-select [(ngModel)]="family.branchId" name="branchId" disabled>
+                              <mat-option *ngFor="let u of dropdownService.branchList" value="{{u.id}}">{{u.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Unit</mat-label>
+                            <mat-select name="unitId" [(ngModel)]="family.unitId">
+                              <mat-option *ngFor="let u of dropdownService.unitList" [value]="u.id">{{u.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3" appearance="fill">
+                        <mat-form-field>
+                            <mat-label>Unit Name In Malyalam</mat-label>
+                            <input matInput name="unitNameInLocal" [(ngModel)]="family.unitNameInLocal" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Family Number</mat-label>
+                            <input matInput name="familyId" type="number" [(ngModel)]="family.familyId" [disabled]="isUpdate">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Family Name</mat-label>
+                            <input matInput name="familyName" [(ngModel)]="family.familyName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Family Name In Malyalam</mat-label>
+                            <input matInput name="familyNameLocal" [(ngModel)]="family.familyNameLocal">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Classification</mat-label>
+                            <mat-select name="classification" [(ngModel)]="family.classification">
+                              <mat-option *ngFor="let c of dropdownService.staticDropdowns.classifications" [value]="c.id">{{c.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Ward Number</mat-label>
+                            <input matInput name="wardNumber" [(ngModel)]="family.wardNumber">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Bank Ward Number</mat-label>
+                            <input matInput name="bankWardNumber" [(ngModel)]="family.bankWardNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Post Office</mat-label>
+                            <input matInput name="postOffice" [(ngModel)]="family.postOffice">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>PO In Malyalam</mat-label>
+                            <input matInput name="postOfficeLocal" [(ngModel)]="family.postOfficeLocal">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field >
+                            <mat-label>Pincode</mat-label>
+                            <input matInput name="pinCode" [(ngModel)]="family.pinCode" type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <mat-form-field >
+                    <mat-label>Permanent Address</mat-label>
+                    <textarea matInput name="permanentAddress" placeholder="Ex. 100 Main St" rows="1" [(ngModel)]="family.permanentAddress"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="col-5">
+                <mat-form-field >
+                    <mat-label>Permanent Address In Malyalam</mat-label>
+                    <textarea matInput name="permanentAddressLocal" [(ngModel)]="family.permanentAddressLocal" placeholder="Ex. 100 Main St" rows="1"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" style="justify-content: left;margin-top: -20px;margin-bottom: 10px;">
+            <div class="col-1"></div>
+            <div class="col-2 custom-checkbox">
+                <section>
+                    <mat-checkbox color="primary" name="sameAsCurrent" [(ngModel)]="sameAsCurrent" (change)="onSameAsCurrentChange()">Same as Current</mat-checkbox>
+                </section>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-5">
+                <mat-form-field >
+                    <mat-label>Current Address</mat-label>
+                    <textarea matInput placeholder="Ex. 100 Main St" rows="1" name="currentAddress" [(ngModel)]="family.currentAddress"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="col-5">
+                <mat-form-field >
+                    <mat-label>Current Address In Malyalam</mat-label>
+                    <textarea matInput placeholder="Ex. 100 Main St" rows="1" name="currentAddressLocal" [(ngModel)]="family.currentAddressLocal">1600 Amphitheatre Pkwy</textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-10">
+                <mat-form-field >
+                    <mat-label>Remarks</mat-label>
+                    <textarea matInput placeholder="Any remarks about the family" rows="1" name="remarks" [(ngModel)]="family.remarks">Remarks</textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <mat-tab-group #tabGroup [(selectedIndex)]="selectedMember" style="margin-bottom: 10px;width: 98%;">
+                    <ng-container *ngFor="let mem of family.members;let i=index">
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                Member {{i+1}}<mat-icon style="font-size: 20px;margin-top: 5px;margin-left: 10px;" *ngIf="family.members.length!=1" (click)="removeMember(i)">cancel</mat-icon>
+                              </ng-template>
+                        </mat-tab>
+                    </ng-container>
+                </mat-tab-group>
+            </div>
+            <div class="col-1 custom-icon">
+                <mat-icon color="primary" (click)="addMember()">person_add</mat-icon>
+            </div>
+    
+        </div>
+        <app-member [member]="family.members[selectedMember]"></app-member>
+        <div class="row">
+            <button mat-raised-button color="primary" style="width: 150px" (click)="saveFamily()">{{isUpdate?"Update":"Save"}}</button>
+        </div>
+        
+    </form>

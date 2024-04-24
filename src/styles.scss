@@ -1,4 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-checkbox{
+    margin-top: 10px;
+    display: flex;
+    justify-content: left;
+}
+
+mat-form-field{
+    width: 100%;
+    justify-content: center;
+}
+
+.save-button{
+    display: flex;
+    justify-content: center;
+}
+
+.search-button{
+    width: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+input:disabled {
+    color: black !important;
+}
+textarea:disabled {
+    color: black !important;
+}
+mat-label{
+    color: #7A7583;
+}
+

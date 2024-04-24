@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>
+    <span><mat-icon [ngStyle]="{'color':colorValue}" style="font-size: 25px;vertical-align: middle;">{{iconValue}}</mat-icon></span>
+    <span style="margin-left: 10px;vertical-align: -1px;">{{dialogData.title}}</span>
+</h2>
+<div mat-dialog-content class="mb-1" style="margin-left: 5px;color: black;">
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let msg of dialogData.message">
+          <mat-icon matListIcon style="font-size: small;vertical-align: -webkit-baseline-middle;">fiber_manual_record</mat-icon> 
+          <span>{{msg}}</span>
+        </mat-list-item>
+      </mat-list>
+</div>
+<div mat-dialog-actions style="justify-content:end">
+    <button mat-raised-button mat-dialog-close color="primary" (click)="confirm()" *ngIf="dialogData.showOkayButton">{{dialogData.textOkayButton}}</button>
+  <button mat-raised-button mat-dialog-close color="accent" (click)="close()">{{dialogData.textCancelButton}}</button>
+</div>

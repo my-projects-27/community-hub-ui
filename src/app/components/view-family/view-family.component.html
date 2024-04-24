@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Family Id</mat-label>
+            <input matInput name="familyId" [(ngModel)]="familyId">
+        </mat-form-field>
+    </div>
+    <div class="col-1" style="margin-top: 10px;">
+        <button mat-raised-button color="primary" class="search-button" (click)="searchFamily()">Search</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-2">
+        <mat-form-field appearance="fill">
+            <mat-label>Unit</mat-label>
+            <mat-select [(ngModel)]="family.unitId" name="unitId" disabled>
+              <mat-option *ngFor="let u of dropdownService.unitList" [value]="u.id">{{u.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Family Number</mat-label>
+            <input matInput [(ngModel)]="family.familyId" name="familyId" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Family Name</mat-label>
+            <input matInput [(ngModel)]="family.familyName" name="familyName" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Family Name In Malyalam</mat-label>
+            <input matInput name="familyNameLocal" [(ngModel)]="family.familyNameLocal" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Classification</mat-label>
+            <mat-select name="classification" [(ngModel)]="family.classification" disabled>
+              <mat-option *ngFor="let c of dropdownService.staticDropdowns.classifications" [value]="c.id">{{c.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Ward Number</mat-label>
+            <input matInput name="wardNumber" [(ngModel)]="family.wardNumber" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Bank Ward Number</mat-label>
+            <input matInput name="bankWardNumber" [(ngModel)]="family.bankWardNumber" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Post Office</mat-label>
+            <input matInput name="postOffice" [(ngModel)]="family.postOffice" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>PO In Malyalam</mat-label>
+            <input matInput name="postOfficeLocal" [(ngModel)]="family.postOfficeLocal" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Pincode</mat-label>
+            <input matInput name="pincode" [(ngModel)]="family.pinCode" disabled>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-5">
+        <mat-form-field >
+            <mat-label>Permanent Address</mat-label>
+            <textarea matInput name="permanentAddress" placeholder="Ex. 100 Main St" rows="1" [(ngModel)]="family.permanentAddress" disabled></textarea>
+        </mat-form-field>
+    </div>
+    <div class="col-5">
+        <mat-form-field >
+            <mat-label>Permanent Address In Malyalam</mat-label>
+            <textarea matInput name="permanentAddressLocal" [(ngModel)]="family.permanentAddressLocal" placeholder="Ex. 100 Main St" rows="1" disabled></textarea>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-5">
+        <mat-form-field >
+            <mat-label>Current Address</mat-label>
+            <textarea matInput placeholder="Ex. 100 Main St" rows="1" name="currentAddress" [(ngModel)]="family.currentAddress" disabled></textarea>
+        </mat-form-field>
+    </div>
+    <div class="col-5">
+        <mat-form-field >
+            <mat-label>Current Address In Malyalam</mat-label>
+            <textarea matInput placeholder="Ex. 100 Main St" rows="1" name="currentAddressLocal" [(ngModel)]="family.currentAddressLocal" disabled>1600 Amphitheatre Pkwy</textarea>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-10">
+        <mat-form-field >
+            <mat-label>Remarks</mat-label>
+            <textarea matInput placeholder="Any remarks about the family" rows="1" name="remarks" [(ngModel)]="family.remarks" disabled>Remarks</textarea>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 10px;">
+    <div class="col-10">
+        <mat-tab-group #tabGroup [(selectedIndex)]="selectedTab">
+            <mat-tab label="Member Details">
+                <span>&nbsp;</span>
+                <ag-grid-angular
+                    style="width:100%;" class="ag-theme-alpine" (gridReady)="onGridReady($event)"
+                    [rowData]="family.members" [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'"
+                    [columnDefs]="gridColDef" [pagination]="true" [gridOptions]="gridOptions"
+                >
+                </ag-grid-angular>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<div class="row">
+    <button mat-raised-button color="primary" class="search-button" (click)="updateFamily()">Update</button>
+</div>

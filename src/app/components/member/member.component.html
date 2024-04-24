@@ -1,0 +1,127 @@
+<div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput [(ngModel)]="member.name">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Name In Malyalam</mat-label>
+                        <input matInput name="nameInLocal" [(ngModel)]="member.nameInLocal">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Relationship with primary</mat-label>
+                        <input matInput name="relationWithPrimary" [(ngModel)]="member.relationWithPrimary">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Email</mat-label>
+                        <input matInput name="usermail" type="email" [(ngModel)]="member.email">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Primary Number</mat-label>
+                        <input matInput name="primaryNumber" type="number" [(ngModel)]="member.primaryNumber">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Secondary Number</mat-label>
+                        <input matInput name="secondaryNumber" type="number" [(ngModel)]="member.secondaryNumber">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Whatsapp Number</mat-label>
+                        <input matInput name="whatsAppNumber" type="number" [(ngModel)]="member.whatsAppNumber">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Present Location</mat-label>
+                        <input matInput name="presentLocation" type="text" [(ngModel)]="member.presentLocation">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Adhaar Number</mat-label>
+                        <input matInput name="adhaarNumber" type="number" [(ngModel)]="member.adhaarNumber">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field color="primary">
+                        <mat-label>Date Of Birth</mat-label>
+                        <input name="dateOfBirth" matInput [matDatepicker]="picker2" [value]="member.dateOfBirth | date: 'yyyy-MM-dd'" (dateChange)="onDateChange($event)">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Profession</mat-label>
+                        <mat-select name="profession" [(ngModel)]="member.profession">
+                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.profession" value="{{u.id}}">{{u.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Mode Of Contact</mat-label>
+                        <mat-select name="modeOfContact" [(ngModel)]="member.modeOfContact">
+                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.modeOfContact" value="{{u.id}}">{{u.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Blood Group</mat-label>
+                        <mat-select name="bloodGroup" [(ngModel)]="member.bloodGroup">
+                          <mat-option *ngFor="let u of dropdownService.bloodGroup" [value]="u.id">{{u.id}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-9 custom-checkbox">
+                    <section>
+                        <mat-checkbox color="primary" [(ngModel)]="member.isPrimary">Primary Member</mat-checkbox>
+                    </section>
+                    <section>
+                        <mat-checkbox color="primary" [(ngModel)]="member.isPrimaryContact">Primary Contact</mat-checkbox>
+                    </section>
+                    <section>
+                        <mat-checkbox color="primary" [(ngModel)]="member.isPrimaryWhatsApp">Primary Whatsapp</mat-checkbox>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

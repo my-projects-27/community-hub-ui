@@ -1,1 +1,21 @@
-<p>navbar works!</p>
+<mat-toolbar >
+    <mat-toolbar-row class="mat-elevation-z8 main-toolbar">
+        <div style="display: flex;width: 55%;justify-content: flex-end;">
+            <img src="assets/r.png" alt="Logo" sizes="5px" style="width: 40px; height: 40px;border-radius: 16px;margin-right: 10px;">
+            <span mat-button>Community-Hub</span>
+        </div>
+        <button mat-raised-button color="primary" *ngIf="!authService.userDetails.accessToken" (click)="login()">Sign In</button>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="mat-elevation-z8 sub-toolbar" *ngIf="authService.userDetails.accessToken">
+        <div style="display: flex;width: 100%;justify-content: center;">
+            <a routerLink="/search-family" routerLinkActive="active" mat-button>Family Search</a>
+            <a routerLink="/view-family" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Family View</a>
+            <a routerLink="/create-family" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Create Family</a>
+            <a routerLink="/member-search" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Member Search</a>
+            <a routerLink="/accounting" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Account</a>
+            <a routerLink="/config-master" routerLinkActive="active" mat-button *ngIf="configVisible()"><span class="custom-verticalbar">|</span>Configuration</a>
+        </div>
+        <button mat-raised-button color="accent" (click)="logout()">Log out</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
