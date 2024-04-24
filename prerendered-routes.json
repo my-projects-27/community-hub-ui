@@ -1,0 +1,11 @@
+{
+  "routes": [
+    "/",
+    "/config-master",
+    "/create-family",
+    "/login",
+    "/search-family",
+    "/view-family",
+    "/welcome"
+  ]
+}
