@@ -29,14 +29,14 @@ export class CreateFamilyComponent implements OnInit{
   ngOnInit(): void {
     if(this.familyService.familyToUpdate.familyId){
       this.family=this.familyService.familyToUpdate;
-      console.log(this.family);
-      console.log(this.dropdownService.unitList);
       this.isUpdate=true;
       this.familyService.familyToUpdate=new Family();
     }else{
       let mem=new Member();
       this.family.members.push(mem);
     }
+    if(this.dropdownService.branchList&&this.dropdownService.branchList.length>0)
+      this.family.branchId=this.dropdownService.branchList[0].id;
   }
 
   addMember(){

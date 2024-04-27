@@ -68,6 +68,9 @@ export class ViewFamilyComponent implements OnInit {
       return;
     this.familyService.getFamilyById(this.familyId).subscribe((data: Family) => {
       this.family = data;
+      console.log(this.dropdownService.branchList);
+      if(this.dropdownService.branchList&&this.dropdownService.branchList.length>0)
+        this.family.branchId=this.dropdownService.branchList[0].id;
     }, err => {
       this.dialogEntity = new DialogEntity();
       this.dialogEntity.message = err.error.message ? [err.error.message] : (err.status == 403 ? ["Access Denied"] : ["Unknown Error Occoured!"]);

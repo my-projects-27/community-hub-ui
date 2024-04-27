@@ -45,6 +45,7 @@ export class ConfigMasterComponent implements OnInit{
       this.union.unionNameLocal = this.configEntity.nameLocal;
       this.dropdownService.saveUnions(this.union).subscribe((res)=>{
         this.showSuccessDialog(res);
+        this.dropdownService.getDropdowns();
       });
     }else if(this.selectedEntity == "Branch"){
       this.branch.branchName = this.configEntity.name;
@@ -52,6 +53,7 @@ export class ConfigMasterComponent implements OnInit{
       this.branch.unionId = this.configEntity.parentId;
       this.dropdownService.saveBranches(this.branch).subscribe((res)=>{
         this.showSuccessDialog(res);
+        this.dropdownService.getDropdowns();
       });
     }else if(this.selectedEntity == "Unit"){
       this.unit.unitName = this.configEntity.name;
@@ -59,6 +61,7 @@ export class ConfigMasterComponent implements OnInit{
       this.unit.branchId = this.configEntity.parentId;
       this.dropdownService.saveUnits(this.unit).subscribe((res)=>{
         this.showSuccessDialog(res);
+        this.dropdownService.getDropdowns();
       });
     }else{
       this.dropdownReference.code = this.configEntity.code;
@@ -67,6 +70,7 @@ export class ConfigMasterComponent implements OnInit{
       this.dropdownReference.valueLocal = this.configEntity.nameLocal;
       this.dropdownService.saveStaticDropdowns(this.dropdownReference).subscribe((res)=>{
         this.showSuccessDialog(res);
+        this.dropdownService.getDropdowns();
       },err=>{
         this.dialogEntity = new DialogEntity();
         this.dialogEntity.message = err.error.message? err.error.message : (err.status==403?"Access Denied":"Unknown Error Occoured!");

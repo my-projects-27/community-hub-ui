@@ -8,7 +8,7 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Branch</mat-label>
                             <mat-select [(ngModel)]="family.branchId" name="branchId" disabled>
-                              <mat-option *ngFor="let u of dropdownService.branchList" value="{{u.id}}">{{u.value}}</mat-option>
+                              <mat-option *ngFor="let u of dropdownService.branchList" [value]="u.id">{{u.value}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -28,8 +28,8 @@
                     </div>
                     <div class="col-3">
                         <mat-form-field >
-                            <mat-label>Family Number</mat-label>
-                            <input matInput name="familyId" type="number" [(ngModel)]="family.familyId" [disabled]="isUpdate">
+                            <mat-label>Family Id</mat-label>
+                            <input matInput name="familyId" [(ngModel)]="family.familyId" [disabled]="isUpdate">
                         </mat-form-field>
                     </div>
                 </div>
