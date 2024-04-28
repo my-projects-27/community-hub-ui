@@ -32,7 +32,7 @@ export class DropdownService{
     return this.http.get<DropdownObject[]>(`${this.authService.API_URL}common/unions`,this.authService.getHeaders());
   }
   getStaticDropdowns(){
-    return this.http.get<StaticDropdowns>(`${this.authService.API_URL}common/dropdowns`,{params:{dropdowns:["classifications","profession","modeOfContact"]},...this.authService.getHeaders()});
+    return this.http.get<StaticDropdowns>(`${this.authService.API_URL}common/dropdowns`,{params:{dropdowns:["classifications","profession","modeOfContact","relationships"]},...this.authService.getHeaders()});
   }
   
   async getDropdowns(){

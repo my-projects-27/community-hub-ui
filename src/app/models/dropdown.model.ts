@@ -9,12 +9,13 @@ export class StaticDropdowns{
     classifications:DropdownObject[]=[];
     profession:DropdownObject[]=[];
     modeOfContact:DropdownObject[]=[];
-
+    relationships:DropdownObject[]=[];
 }
 export const staticTypes:DropdownObject[]= [
     {id:"profession",value:"Profession",valueLocal:"",parentId:""},
     {id:"classifications",value:"Classifications",valueLocal:"",parentId:""},
     {id:"modeOfContact",value:"Mode of Contact",valueLocal:"",parentId:""},
+    {id:"relationships",value:"Relationships",valueLocal:"",parentId:""},
 ];
 
 export const bloodGroups:DropdownObject[]= [

@@ -1,3 +1,4 @@
+import { Member } from "./family.model";
 
 export class DialogEntity{
     message: string[] = [];
@@ -6,6 +7,7 @@ export class DialogEntity{
     textOkayButton: string = "Ok";
     showOkayButton: boolean = true;
     textCancelButton: string = "Cancel";
+    okayButtonHandler=():void=>{};
 }
 
 export enum DialogType{

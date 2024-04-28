@@ -18,7 +18,9 @@
                 <div class="col-3">
                     <mat-form-field >
                         <mat-label>Relationship with primary</mat-label>
-                        <input matInput name="relationWithPrimary" [(ngModel)]="member.relationWithPrimary">
+                        <mat-select name="relationships" [(ngModel)]="member.relationWithPrimary">
+                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.relationships" [value]="u.id">{{u.value}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-3">
@@ -83,7 +85,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Profession</mat-label>
                         <mat-select name="profession" [(ngModel)]="member.profession">
-                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.profession" value="{{u.id}}">{{u.value}}</mat-option>
+                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.profession" [value]="u.id">{{u.value}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -91,7 +93,7 @@
                     <mat-form-field >
                         <mat-label>Mode Of Contact</mat-label>
                         <mat-select name="modeOfContact" [(ngModel)]="member.modeOfContact">
-                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.modeOfContact" value="{{u.id}}">{{u.value}}</mat-option>
+                            <mat-option *ngFor="let u of dropdownService.staticDropdowns.modeOfContact" [value]="u.id">{{u.value}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

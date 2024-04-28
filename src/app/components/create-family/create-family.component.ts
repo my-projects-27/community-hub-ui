@@ -83,21 +83,34 @@ export class CreateFamilyComponent implements OnInit{
       this.dialogEntity.title = DialogType.ERROR;
       this.dialogEntity.type = DialogType.ERROR;
     }
-    this.dialog.open(ConfirmModalComponent, {
-      width: '100%',
-      maxWidth: '400px',
-      height: 'auto',
-      hasBackdrop: true,
-      maxHeight: '700px',
-      data: this.dialogEntity
-    });
+    this.openDialog();
     this.family=new Family();
     this.family.members.push(new Member());
     this.selectedMember=0;
     this.sameAsCurrent=false;
   }
   removeMember(i:number){
+    this.dialogEntity = new DialogEntity();
+    this.dialogEntity.message = ["Are You Sure You Want To Remove This Member?"];
+    this.dialogEntity.title = DialogType.CONFIRM;
+    this.dialogEntity.type = DialogType.CONFIRM;
+    this.dialogEntity.textCancelButton="No";
+    this.dialogEntity.textOkayButton="Yes";
+    this.dialogEntity.okayButtonHandler=this.removeMemberConfirmed.bind(this,i);
+    this.openDialog();
+  }
+
+  removeMemberConfirmed(i:number){
     this.family.members.splice(i,1);
     this.selectedMember=this.selectedMember==0?0:this.selectedMember-1;
+  }
+
+  openDialog(){
+    this.dialog.open(ConfirmModalComponent, {
+      height: 'auto',
+      hasBackdrop: true,
+      maxHeight: '700px',
+      data: this.dialogEntity
+    });
   }
 }

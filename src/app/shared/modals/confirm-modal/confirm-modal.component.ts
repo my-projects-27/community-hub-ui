@@ -29,8 +29,7 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   confirm() {
-    if (this.okButtonFunction)
-      this.okButtonFunction();
+    this.dialogData.okayButtonHandler();
   }
 
   getIcon() {
