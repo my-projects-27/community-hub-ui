@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Family, FamilySearch } from '../../models/family.model';
 import { CustomResponse } from '../../models/config.model';
+import { DropdownObject } from '../../models/dropdown.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,7 @@ export class FamilyService {
     return this.http.get<Family>(`${this.authService.API_URL}family/find-by-id?familyId=${familyId}`,this.authService.getHeaders());
   }
 
+  familyAutoComplete(searchTerm:string){
+    return this.http.get<DropdownObject[]>(`${this.authService.API_URL}family/family-auto-complete?searchTerm=${searchTerm}`,this.authService.getHeaders());
+  }
 }

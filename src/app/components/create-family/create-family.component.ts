@@ -6,8 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { CustomResponse, ResponseType } from '../../models/config.model';
 import { DialogEntity, DialogType } from '../../models/modals.model';
 import { ConfirmModalComponent } from '../../shared/modals/confirm-modal/confirm-modal.component';
-import { DropdownObject } from '../../models/dropdown.model';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-create-family',

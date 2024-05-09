@@ -35,7 +35,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AgGridModule } from 'ag-grid-angular';
 import { DropdownService } from './shared/services/dropdown.service';
 import { ViewFamilyComponent } from './components/view-family/view-family.component';
-
+import { TxnsRegisterComponent } from './components/txns-register/txns-register.component';
+import { TxnCreationComponent } from './components/txn-creation/txn-creation.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,9 @@ import { ViewFamilyComponent } from './components/view-family/view-family.compon
     MemberComponent,
     FamilySearchComponent,
     ConfigMasterComponent,
-    ViewFamilyComponent
+    ViewFamilyComponent,
+    TxnsRegisterComponent,
+    TxnCreationComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,7 @@ import { ViewFamilyComponent } from './components/view-family/view-family.compon
     MatDialogContent,MatDialogActions,MatDialogTitle,MatDialogClose,
     MatSidenavModule,MatListModule,AgGridModule,
     MatOptionModule,MatSelectModule,MatCheckboxModule,MatFormFieldModule, 
-    MatTabsModule,MatRadioModule,MatDatepickerModule
+    MatTabsModule,MatRadioModule,MatDatepickerModule,MatAutocompleteModule
   ],
   providers: [
     AuthService,DropdownService,

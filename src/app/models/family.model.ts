@@ -1,3 +1,5 @@
+import { Transaction } from "./transaction.model";
+
 export class Family{
     branchId:string="";
     familyId:string="";
@@ -23,6 +25,7 @@ export class Family{
     createdDate:String="";
     updatedDate:String="";
     members:Member[]=[];
+    transactions:Transaction[]=[]    
 }
 
 export class Member{

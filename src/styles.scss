@@ -36,4 +36,9 @@ textarea:disabled {
 mat-label{
     color: #7A7583;
 }
-
+.ag-theme-alpine .ag-header {
+    background-color: white;
+}
+.ag-header-cell-label{
+    justify-content: center;
+}
