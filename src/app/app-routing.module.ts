@@ -7,6 +7,8 @@ import { CreateFamilyComponent } from './components/create-family/create-family.
 import { FamilySearchComponent } from './components/family-search/family-search.component';
 import { ConfigMasterComponent } from './components/config-master/config-master.component';
 import { ViewFamilyComponent } from './components/view-family/view-family.component';
+import { TxnCreationComponent } from './components/txn-creation/txn-creation.component';
+import { TxnsRegisterComponent } from './components/txns-register/txns-register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'view-family', component: ViewFamilyComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'create-family', component: CreateFamilyComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'config-master', component: ConfigMasterComponent , pathMatch: 'full',canActivate: [AuthGuard]},
+  { path: 'txns-register', component: TxnsRegisterComponent , pathMatch: 'full',canActivate: [AuthGuard]},
+  { path: 'txn-creation', component: TxnCreationComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'welcome', component: WelcomeComponent , pathMatch: 'full'},
   { path: '', component: WelcomeComponent , pathMatch: 'full'},
   { path: '*', redirectTo: 'welcome', pathMatch: 'full'},

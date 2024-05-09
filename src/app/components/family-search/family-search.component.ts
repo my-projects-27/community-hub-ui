@@ -71,8 +71,8 @@ export class FamilySearchComponent implements OnInit{
             params.successCallback([],0);
             this.gridApi.showNoRowsOverlay();
           }else{
-            this.familySearch.offset=params.startRow;
             this.familySearch.pageSize=params.endRow-params.startRow;
+            this.familySearch.offset=params.startRow;
             if(params.sortModel.length!=0){
               this.familySearch.sortBy=params.sortModel[0].colId;
               this.familySearch.sortOrder=params.sortModel[0].sort;

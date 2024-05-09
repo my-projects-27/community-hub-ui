@@ -28,6 +28,7 @@ export class ConfigEntity{
     parentId:number=0;
     code:string="";
     type:string="";
+    familyTxnAllowed:boolean=false;
 }
 
 export class CustomResponse{

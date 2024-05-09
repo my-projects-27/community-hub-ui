@@ -7,15 +7,16 @@
               <mat-radio-button value="Branch" color="primary">Branch</mat-radio-button>
               <mat-radio-button value="Unit" color="primary">Unit</mat-radio-button>
               <mat-radio-button value="staticType" color="primary">Static Elements</mat-radio-button>
+              <mat-radio-button value="accountHead" color="primary">Account Head</mat-radio-button>
             </mat-radio-group>
         </div>
     </div>
     <div class="row">
-        <div class="col-3" *ngIf="selectedEntity!='staticType'&&selectedEntity!='Union'">
+        <div class="col-3" *ngIf="selectedEntity!='staticType'&&selectedEntity!='Union'&&selectedEntity!='accountHead'">
             <mat-form-field appearance="fill">
                 <mat-label>{{selectedEntity}}</mat-label>
                 <mat-select [(ngModel)]="configEntity.parentId" name="parent">
-                  <mat-option value="{{child.id}}" *ngFor="let child of parentList">{{child.value}}</mat-option>
+                  <mat-option [value]="child.id" *ngFor="let child of parentList">{{child.value}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -25,12 +26,12 @@
             <mat-form-field appearance="fill">
                 <mat-label>Type</mat-label>
                 <mat-select [(ngModel)]="configEntity.type" name="staticTypes">
-                  <mat-option value="{{child.id}}"  *ngFor="let child of staticTypes">{{child.value}}</mat-option>
+                  <mat-option [value]="child.id"  *ngFor="let child of staticTypes">{{child.value}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
     </div>
-    <div class="row" *ngIf="selectedEntity=='staticType'">
+    <div class="row" *ngIf="selectedEntity=='staticType'||selectedEntity=='accountHead'">
         <div class="col-3">
             <mat-form-field >
                 <mat-label>Code</mat-label>
@@ -52,6 +53,23 @@
                 <mat-label>Name In Malyalam</mat-label>
                 <input matInput [(ngModel)]="configEntity.nameLocal" name="nameLocal">
             </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="selectedEntity=='accountHead'">
+        <div class="col-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Account Type</mat-label>
+                <mat-select [(ngModel)]="configEntity.type" name="accountTypes">
+                  <mat-option [value]="child" *ngFor="let child of txnTypes">{{child}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="selectedEntity=='accountHead'" style="margin-top: -10px;margin-bottom: 10px;">
+        <div class="col-3">
+            <section style="margin-left: -10px;">
+                <mat-checkbox color="primary" name="familyTxnAllowed" [(ngModel)]="configEntity.familyTxnAllowed">Linked to Family</mat-checkbox>
+            </section>
         </div>
     </div>
     <div class="row">

@@ -117,13 +117,21 @@
 </div>
 <div class="row" style="margin-bottom: 10px;">
     <div class="col-10">
-        <mat-tab-group #tabGroup [(selectedIndex)]="selectedTab">
+        <mat-tab-group #tabGroup [(selectedIndex)]="selectedTab" (selectedTabChange)="onTabChanged();">
             <mat-tab label="Member Details">
                 <span>&nbsp;</span>
                 <ag-grid-angular
                     style="width:100%;" class="ag-theme-alpine" (gridReady)="onGridReady($event)"
                     [rowData]="family.members" [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'"
                     [columnDefs]="gridColDef" [pagination]="true" [gridOptions]="gridOptions"
+                >
+                </ag-grid-angular>
+            </mat-tab>
+            <mat-tab label="Transactions">
+                <span>&nbsp;</span>
+                <ag-grid-angular
+                    style="width:100%;" class="ag-theme-alpine" (gridReady)="onTxnGridReady($event)"
+                    [domLayout]="'autoHeight'" [columnDefs]="gridColTxnDef" [pagination]="true" [gridOptions]="gridTxnOptions"
                 >
                 </ag-grid-angular>
             </mat-tab>
