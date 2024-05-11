@@ -1,5 +1,4 @@
 <div class="row">
-    <div class="col-1"></div>
     <div class="col-2">
         <mat-form-field >
             <mat-label>Family Id</mat-label>
@@ -8,6 +7,9 @@
     </div>
     <div class="col-1" style="margin-top: 10px;">
         <button mat-raised-button color="primary" class="search-button" (click)="searchFamily()">Search</button>
+    </div>
+    <div class="col-1" style="margin-top: 10px;margin-left:30px" *ngIf="family.familyId">
+        <button mat-raised-button color="primary" class="search-button" (click)="addDues()">Add Dues</button>
     </div>
 </div>
 <hr>
@@ -132,6 +134,14 @@
                 <ag-grid-angular
                     style="width:100%;" class="ag-theme-alpine" (gridReady)="onTxnGridReady($event)"
                     [domLayout]="'autoHeight'" [columnDefs]="gridColTxnDef" [pagination]="true" [gridOptions]="gridTxnOptions"
+                >
+                </ag-grid-angular>
+            </mat-tab>
+            <mat-tab label="Family Dues">
+                <span>&nbsp;</span>
+                <ag-grid-angular
+                    style="width:100%;" class="ag-theme-alpine" (gridReady)="onDuesGridReady($event)"
+                    [domLayout]="'autoHeight'" [columnDefs]="gridColDuesDef" [pagination]="true" [gridOptions]="gridDuesOptions"
                 >
                 </ag-grid-angular>
             </mat-tab>

@@ -9,6 +9,7 @@ import { ConfigMasterComponent } from './components/config-master/config-master.
 import { ViewFamilyComponent } from './components/view-family/view-family.component';
 import { TxnCreationComponent } from './components/txn-creation/txn-creation.component';
 import { TxnsRegisterComponent } from './components/txns-register/txns-register.component';
+import { TxnApprovalsComponent } from './components/txn-approvals/txn-approvals.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'config-master', component: ConfigMasterComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'txns-register', component: TxnsRegisterComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'txn-creation', component: TxnCreationComponent , pathMatch: 'full',canActivate: [AuthGuard]},
+  { path: 'txn-approvals', component: TxnApprovalsComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'welcome', component: WelcomeComponent , pathMatch: 'full'},
   { path: '', component: WelcomeComponent , pathMatch: 'full'},
   { path: '*', redirectTo: 'welcome', pathMatch: 'full'},

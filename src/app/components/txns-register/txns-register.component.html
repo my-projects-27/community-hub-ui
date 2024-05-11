@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-10">
+        <div class="row">
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Transaction Id</mat-label>
+                    <input matInput type="number" [(ngModel)]="txnSearchDto.id" name="txnId">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Transaction Type</mat-label>
+                    <mat-select [(ngModel)]="txnSearchDto.txnType" name="txnType">
+                        <mat-option value=" "></mat-option>
+                        <mat-option [value]="child" *ngFor="let child of txnTypes">{{child}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="primary">
+                    <mat-label>From Date</mat-label>
+                    <input name="txnFromDate" matInput [matDatepicker]="picker2"
+                        [value]="txnSearchDto.fromDate | date: 'yyyy-MM-dd'" (dateChange)="onFromDateChange($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="primary">
+                    <mat-label>To Date</mat-label>
+                    <input name="txnToDate" matInput [matDatepicker]="picker1"
+                        [value]="txnSearchDto.toDate | date: 'yyyy-MM-dd'" (dateChange)="onToDateChange($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-10">
+        <div class="row">
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Transaction Ref</mat-label>
+                    <input matInput type="string" [(ngModel)]="txnSearchDto.txnRef" name="txnRef">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Family Code</mat-label>
+                    <input matInput type="text" [(ngModel)]="txnSearchDto.familyCode" name="familyCode">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Family Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="txnSearchDto.familyName" name="familyName">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Cash/Transfer</mat-label>
+                    <mat-select [(ngModel)]="txnSearchDto.transferType" name="transferType">
+                        <mat-option value=" "></mat-option>
+                        <mat-option [value]="child" *ngFor="let child of transferTypes">{{child}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-10">
+        <div class="row">
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select [(ngModel)]="txnSearchDto.status" name="status">
+                        <mat-option value=" "></mat-option>
+                        <mat-option [value]="child" *ngFor="let child of statusList">{{child}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Account ID</mat-label>
+                    <input matInput type="number" [(ngModel)]="txnSearchDto.accountId" name="accountId">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Account Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="txnSearchDto.accountName" name="accountName">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field>
+                    <mat-label>Remarks</mat-label>
+                    <input matInput type="text" [(ngModel)]="txnSearchDto.remarks" name="remarks">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 10px;">
+    <button mat-raised-button color="primary" class="search-button" (click)="searchTransactions()">Search</button>
+</div>
+<div class="row">
+    <div class="col-10">
+        <ag-grid-angular style="width:100%;" class="ag-theme-alpine" (gridReady)="onTxnGridReady($event)"
+            [domLayout]="'autoHeight'" [columnDefs]="gridColTxnDef" [pagination]="true" [gridOptions]="gridTxnOptions">
+        </ag-grid-angular>
+    </div>
+</div>

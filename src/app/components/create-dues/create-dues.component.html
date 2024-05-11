@@ -1,0 +1,35 @@
+<h2 mat-dialog-title style="color: #3f51b5;">Add Family Dues</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="row" style="margin-top: 10px;">
+        <mat-form-field >
+            <mat-label>Account Id</mat-label>
+            <mat-select name="accounts" [(ngModel)]="familyDue.accountId">
+                <mat-option [value]="child.id"  *ngFor="let child of accountService.accounts">{{child.name}} ({{child.id}})</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field >
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" [(ngModel)]="familyDue.amount" name="amount">
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field color="primary">
+            <mat-label>Due Date</mat-label>
+            <input name="dueDate" matInput [matDatepicker]="picker2" [value]="familyDue.date | date: 'yyyy-MM-dd'" (dateChange)="onDateChange($event)">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="row" st>
+        <mat-form-field >
+            <mat-label>Description</mat-label>
+            <input matInput type="string" [(ngModel)]="familyDue.description" name="description">
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button mat-button cdkFocusInitial color="primary" (click)="saveDues()">Save</button>
+</mat-dialog-actions>

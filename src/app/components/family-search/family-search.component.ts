@@ -72,7 +72,7 @@ export class FamilySearchComponent implements OnInit{
             this.gridApi.showNoRowsOverlay();
           }else{
             this.familySearch.pageSize=params.endRow-params.startRow;
-            this.familySearch.offset=params.startRow;
+            this.familySearch.offset=params.startRow/this.familySearch.pageSize;
             if(params.sortModel.length!=0){
               this.familySearch.sortBy=params.sortModel[0].colId;
               this.familySearch.sortOrder=params.sortModel[0].sort;
@@ -83,7 +83,7 @@ export class FamilySearchComponent implements OnInit{
                 d.classificationLabel=this.dropdownService.classificationMap[d.classification];
               })
               params.successCallback(data, this.familyService.totalRows);
-              this.gridApi.autoSizeAllColumns();
+              this.gridApi.sizeColumnsToFit();
               this.gridApi.hideOverlay();
             })
           }

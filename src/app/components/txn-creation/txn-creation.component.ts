@@ -7,10 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../../shared/modals/confirm-modal/confirm-modal.component';
 import { AccountsService } from '../../shared/services/accounts.service';
 import { AccountHead, AccountSearchDto } from '../../models/accounts.model';
-import { DropdownService } from '../../shared/services/dropdown.service';
 import { FamilyService } from '../../shared/services/family.service';
 import { DropdownObject } from '../../models/dropdown.model';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-txn-creation',
@@ -26,15 +26,14 @@ export class TxnCreationComponent implements OnInit{
   txnTypes:string[]=["PAYMENT","RECEIPT"]
   searchTerm=""
 
-  constructor(public txnsService:TransactionsService,private dialog: MatDialog,public accountService:AccountsService,public familyService:FamilyService) { }
+  constructor(public txnsService:TransactionsService,private dialog: MatDialog,public accountService:AccountsService,public familyService:FamilyService,private datePipe:DatePipe) { }
  
   ngOnInit(){
     var acc=new AccountSearchDto();
     acc.pageSize=1000;
     acc.offset=0;
-    this.transaction.txnDate=new Date().toISOString().substring(0, 10);
+    this.transaction.txnDate=this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
     this.accountService.searchAccounts(acc)
-    .pipe(debounceTime(2000),distinctUntilChanged())
     .subscribe(res=>this.accountService.accounts=res,err=>this.handleError(err));
   }
 
@@ -52,10 +51,15 @@ export class TxnCreationComponent implements OnInit{
       this.transaction.familyCode="";
       return;
     }
-    this.familyService.familyAutoComplete(this.searchTerm).subscribe(res=>this.famlies=res,err=>this.handleError(err));
+    this.familyService.familyAutoComplete(this.searchTerm)
+      .pipe(debounceTime(2000),distinctUntilChanged())
+      .subscribe(res=>this.famlies=res,err=>this.handleError(err));
   }
   onDateChange(event: any) {
-    this.transaction.txnDate = event.value.toISOString().substring(0, 10);
+    if(event.value)
+      this.transaction.txnDate = this.datePipe.transform(event.value, 'yyyy-MM-dd')!;
+    else
+      this.transaction.txnDate=""
   }
 
   onAccountSelect(){
@@ -98,7 +102,6 @@ export class TxnCreationComponent implements OnInit{
 
   handleError(err:any){
     this.dialogEntity = new DialogEntity();
-    console.log(err);
     if(err.status==403){
       this.dialogEntity.message = ["Access Denied"];
     }else{

@@ -20,17 +20,27 @@ export class Transaction {
 
 export class TransactionSearchDto{
     id!:number;
-    txnType:string="";
+    txnType!:string;
     fromDate:string="";
     toDate:string="";
     txnRef:string="";
     familyCode:string="";
+    familyName:string="";
     remarks:string="";
-    transferType:string="";
-    status:string="";
+    newRemarks:string="";
+    transferType!:string;
+    status!:string;
     accountId!:number;
+    accountName:string="";
     sortingCol:string="";
     sortOrder:string="";
     pageSize:number=10;
     offset:number=0;
+    sameUserFilter:boolean=false;
+}
+
+export class TXnsProcessDto{
+    transactionId!:number;
+    status!:string; 
+    remarks:string="";
 }

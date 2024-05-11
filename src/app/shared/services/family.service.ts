@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Family, FamilySearch } from '../../models/family.model';
+import { DuesSearchDto, Family, FamilyDue, FamilySearch } from '../../models/family.model';
 import { CustomResponse } from '../../models/config.model';
 import { DropdownObject } from '../../models/dropdown.model';
 
@@ -35,5 +35,15 @@ export class FamilyService {
 
   familyAutoComplete(searchTerm:string){
     return this.http.get<DropdownObject[]>(`${this.authService.API_URL}family/family-auto-complete?searchTerm=${searchTerm}`,this.authService.getHeaders());
+  }
+
+  saveFamilyDue(familyDue:FamilyDue){
+    return this.http.post<CustomResponse>(`${this.authService.API_URL}family/add-dues`,familyDue,this.authService.getHeaders());
+  }
+  searchFamilyDues(familyDuesDto:DuesSearchDto){
+    return this.http.post<FamilyDue[]>(`${this.authService.API_URL}family/filter-dues`,familyDuesDto,this.authService.getHeaders());
+  }
+  countSearchFamilyDues(familyDuesDto:DuesSearchDto){
+    return this.http.post<{count:0}>(`${this.authService.API_URL}family/search-count-dues`,familyDuesDto,this.authService.getHeaders());
   }
 }
