@@ -112,8 +112,6 @@ export class ConfigMasterComponent implements OnInit{
 
   handleError(err:any){
     this.dialogEntity = new DialogEntity();
-    console.log(err);
-    console.log(err.status);
     if(err.status==403){
       this.dialogEntity.message = ["Access Denied"];
     }else{

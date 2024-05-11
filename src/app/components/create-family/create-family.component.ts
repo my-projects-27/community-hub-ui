@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CustomResponse, ResponseType } from '../../models/config.model';
 import { DialogEntity, DialogType } from '../../models/modals.model';
 import { ConfirmModalComponent } from '../../shared/modals/confirm-modal/confirm-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-family',
@@ -21,7 +22,7 @@ export class CreateFamilyComponent implements OnInit{
 
   isUpdate:boolean=false;
 
-  constructor(public dropdownService:DropdownService,public familyService:FamilyService,private dialog: MatDialog) { 
+  constructor(public dropdownService:DropdownService,public familyService:FamilyService,private dialog: MatDialog,private router:Router) { 
   }
   
   ngOnInit(): void {
@@ -77,6 +78,11 @@ export class CreateFamilyComponent implements OnInit{
     if(ResponseType.SUCCESS == res.responseType){
       this.dialogEntity.title = DialogType.SUCCESS;
       this.dialogEntity.type = DialogType.SUCCESS;
+      if(this.family.newFamily){
+        this.dialogEntity.textCancelButton="Cancel";
+        this.dialogEntity.textOkayButton="Add Dues";
+        this.dialogEntity.okayButtonHandler= this.redirectToView.bind(this,this.family.familyId)
+      }
     }else{
       this.dialogEntity.title = DialogType.ERROR;
       this.dialogEntity.type = DialogType.ERROR;
@@ -87,6 +93,12 @@ export class CreateFamilyComponent implements OnInit{
     this.selectedMember=0;
     this.sameAsCurrent=false;
   }
+
+  redirectToView(familyId:string){
+    this.familyService.familyIdToView=familyId;
+    this.router.navigate(['/view-family'])
+  }
+
   removeMember(i:number){
     this.dialogEntity = new DialogEntity();
     this.dialogEntity.message = ["Are You Sure You Want To Remove This Member?"];

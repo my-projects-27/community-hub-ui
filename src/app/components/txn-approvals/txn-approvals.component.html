@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-10">
+        <ag-grid-angular
+            style="width:100%;" class="ag-theme-alpine" (gridReady)="onTxnGridReady($event)"
+            [domLayout]="'autoHeight'" [columnDefs]="gridColTxnDef" [pagination]="true" [gridOptions]="gridTxnOptions"
+        >
+    </ag-grid-angular>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px;">
+    <button mat-raised-button color="primary" style="width: 200px;" class="save-button" (click)="approve()">Approve Changes</button>
+</div>

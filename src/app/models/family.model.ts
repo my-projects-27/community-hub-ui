@@ -3,14 +3,14 @@ import { Transaction } from "./transaction.model";
 export class Family{
     branchId:string="";
     familyId:string="";
-    unitId:string="";
+    unitId!:string;
     unitName:String="";
     unitNameInLocal:String="";
     wardNumber:String="";
     bankWardNumber:String="";
     familyName:String="";
     familyNameLocal:String="";
-    classification:string="";
+    classification!:string;
     classificationLabel:String="";
     currentAddress:String="";
     currentAddressLocal:String="";
@@ -24,6 +24,7 @@ export class Family{
     updateBy:String="";
     createdDate:String="";
     updatedDate:String="";
+    newFamily:boolean=true;
     members:Member[]=[];
     transactions:Transaction[]=[]    
 }
@@ -62,8 +63,35 @@ export class FamilySearch{
     postOffice:string="";
     pinCode:string="";
     address:string="";
-    pageSize:Number=10;
-    offset:Number=0;
+    pageSize:number=10;
+    offset:number=0;
     sortOrder:string="";
     sortBy:string="";
+}
+
+export class FamilyDue{
+    id!:number;
+    familyId!:string;
+    accountId!:number;
+    description:string="";
+    date:string="";
+    amount:number=0;
+    createdBy:string="";
+    createdAt:string="";
+    familyName:string="";
+    accountName:string="";
+}
+
+export class DuesSearchDto{
+    familyId!:string;
+    accountId!:number;
+    description:string="";
+    fromDate:string="";
+    toDate:string="";
+    accountName:string="";
+    familyName:string="";
+    pageSize:number=10;
+    offset:number=0;
+    sortBy:string="";
+    sortOrder:string="";
 }

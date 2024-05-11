@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,7 +18,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from './shared/services/auth.service';
 import { ConfirmModalComponent } from './shared/modals/confirm-modal/confirm-modal.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
-import { MatModalComponent } from './shared/modals/mat-modal/mat-modal.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
@@ -38,6 +37,10 @@ import { ViewFamilyComponent } from './components/view-family/view-family.compon
 import { TxnsRegisterComponent } from './components/txns-register/txns-register.component';
 import { TxnCreationComponent } from './components/txn-creation/txn-creation.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { TxnApprovalsComponent } from './components/txn-approvals/txn-approvals.component';
+import { CustomSelectRendererComponent } from './shared/custom-select-renderer/custom-select-renderer.component';
+import { CustomTextRendererComponent } from './shared/custom-text-renderer/custom-text-renderer.component';
+import { CreateDuesComponent } from './components/create-dues/create-dues.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,14 +48,17 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     LoginComponent,
     WelcomeComponent,
     ConfirmModalComponent,
-    MatModalComponent,
     CreateFamilyComponent,
     MemberComponent,
     FamilySearchComponent,
     ConfigMasterComponent,
     ViewFamilyComponent,
     TxnsRegisterComponent,
-    TxnCreationComponent
+    TxnCreationComponent,
+    TxnApprovalsComponent,
+    CustomSelectRendererComponent,
+    CustomTextRendererComponent,
+    CreateDuesComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +76,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTabsModule,MatRadioModule,MatDatepickerModule,MatAutocompleteModule
   ],
   providers: [
-    AuthService,DropdownService,
+    AuthService,DropdownService,DatePipe,
     {provide: ErrorHandler, useClass: MyErrorHandler},
     provideClientHydration(),
     provideAnimationsAsync(),

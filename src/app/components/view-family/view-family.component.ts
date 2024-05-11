@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FamilyService } from '../../shared/services/family.service';
-import { Family } from '../../models/family.model';
+import { DuesSearchDto, Family } from '../../models/family.model';
 import { GridOptions,GridApi } from 'ag-grid-community';
 import { DialogEntity, DialogType } from '../../models/modals.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import {IDatasource} from 'ag-grid-community';
 import { TransactionsService } from '../../shared/services/transactions.service';
 import { TransactionSearchDto } from '../../models/transaction.model';
+import { CreateDuesComponent } from '../create-dues/create-dues.component';
 
 @Component({
   selector: 'app-view-family',
@@ -20,6 +21,7 @@ export class ViewFamilyComponent implements OnInit {
 
   gridApi!:GridApi;
   txnGridApi!:GridApi;
+  duesGridApi!:GridApi;
   familyId: string = '';
   family: Family = new Family();
   dialogEntity: DialogEntity = new DialogEntity();
@@ -62,6 +64,16 @@ export class ViewFamilyComponent implements OnInit {
   { headerName: "Verified By", field: 'verifiedBy',maxWidth:140  },
   { headerName: 'Verified At', field: 'verifiedAt' },
   ]
+  gridColDuesDef: any[] = [
+    { headerName: 'Dues ID', field: 'id',maxWidth:130  },
+    { headerName: "Account",field:'accountName' },
+    { headerName: "Amount", field: 'amount',maxWidth:130 },
+    { headerName: 'Due Date', field: 'date',maxWidth:170 },
+    { headerName: 'description', field: 'description' },
+    { headerName: "Created By", field: 'createdBy' },
+    { headerName: 'Created At', field: 'createdAt',maxWidth:140  }
+  ]
+
   gridOptions: GridOptions = {
     getRowId: (params) => params.data.memberId,
     defaultColDef: this.defaultColDef,
@@ -73,11 +85,23 @@ export class ViewFamilyComponent implements OnInit {
     pagination: true,
     paginationPageSize: 10,
     cacheOverflowSize:2,
+    cacheBlockSize:10,
     maxConcurrentDatasourceRequests:1,
     infiniteInitialRowCount:1,
     paginationPageSizeSelector:[10,25,50,100],
   }
-
+  gridDuesOptions: GridOptions = {
+    getRowId: (params) => params.data.id,
+    defaultColDef: this.defaultColDef,
+    rowModelType:'infinite',
+    pagination: true,
+    paginationPageSize: 10,
+    cacheBlockSize:10,
+    cacheOverflowSize:2,
+    maxConcurrentDatasourceRequests:1,
+    infiniteInitialRowCount:1,
+    paginationPageSizeSelector:[10,25,50,100],
+  }
   constructor(public familyService: FamilyService,private txnService:TransactionsService, private dialog: MatDialog, public dropdownService: DropdownService,private router:Router) {
   }
 
@@ -86,6 +110,15 @@ export class ViewFamilyComponent implements OnInit {
     this.familyService.familyIdToView=""
     if (this.familyId) {
       this.searchFamily();
+    }
+  }
+
+  addDues(){
+    if(this.family.familyId){
+      this.dialog.open(CreateDuesComponent, {
+        width: '400px',
+        data: {familyId:this.family.familyId}
+      });
     }
   }
 
@@ -98,6 +131,12 @@ export class ViewFamilyComponent implements OnInit {
     this.txnGridApi.hideOverlay();
     this.txnGridApi.sizeColumnsToFit();
   }
+  async onDuesGridReady(params:any){
+    this.duesGridApi=params.api;
+    this.duesGridApi.hideOverlay();
+    this.duesGridApi.sizeColumnsToFit();
+  }
+
   searchFamily() {
     if (!this.familyId)
       return;
@@ -116,7 +155,7 @@ export class ViewFamilyComponent implements OnInit {
         hasBackdrop: true,
         maxHeight: '700px',
         data: this.dialogEntity
-      });
+      }).afterClosed().subscribe(res=>this.selectedTab=2);
     });
   }
 
@@ -128,17 +167,16 @@ export class ViewFamilyComponent implements OnInit {
 
   updateFamily(){
     this.familyService.familyToUpdate=this.family;
+    this.familyService.familyToUpdate.newFamily=false;
     this.router.navigate(['/create-family']);
   }
 
   async onTabChanged() {
     if(!this.familyId)
       return;
-    console.log(this.selectedTab);
     if(this.selectedTab==1){
       let searchCountDto:TransactionSearchDto = new TransactionSearchDto();
       searchCountDto.familyCode = this.familyId;
-      console.log(searchCountDto);
       let res=await this.txnService.searchCountTransactions(searchCountDto).toPromise();
       res=res||{count:0};
       let datasource:IDatasource={
@@ -154,7 +192,7 @@ export class ViewFamilyComponent implements OnInit {
               searchDto.sortOrder = params.sortModel[0].sort;
             }
             searchDto.pageSize = params.endRow - params.startRow;
-            searchDto.offset = params.startRow/params.pageSize;
+            searchDto.offset = params.startRow/searchDto.pageSize;
             this.txnService.searchTransactions(searchDto).subscribe(data => {
                 params.successCallback(data, res.count);
                 this.txnGridApi.autoSizeAllColumns();
@@ -176,6 +214,46 @@ export class ViewFamilyComponent implements OnInit {
         }
       } 
       this.txnGridApi.setDatasource(datasource);
+    }else if(this.selectedTab==2){
+      let searchCountDto:DuesSearchDto = new DuesSearchDto();
+      searchCountDto.familyId = this.familyId;
+      let res=await this.familyService.countSearchFamilyDues(searchCountDto).toPromise();
+      res=res||{count:0};
+      let datasource:IDatasource={
+        getRows:(params:any)=>{
+          if(res.count==0){
+            params.successCallback([],0);
+            this.duesGridApi.showNoRowsOverlay();
+          }else{
+            let searchDto:DuesSearchDto = new DuesSearchDto();
+            searchDto.familyId = this.familyId;
+            if(params.sortModel.length!=0){
+              searchDto.sortBy = params.sortModel[0].colId;
+              searchDto.sortOrder = params.sortModel[0].sort;
+            }
+            searchDto.pageSize = params.endRow - params.startRow;
+            searchDto.offset = params.startRow/searchDto.pageSize;
+            this.familyService.searchFamilyDues(searchDto).subscribe(data => {
+                params.successCallback(data, res.count);
+                this.duesGridApi.sizeColumnsToFit();
+                this.duesGridApi.hideOverlay();
+                }, err => {
+                  this.dialogEntity = new DialogEntity();
+                  this.dialogEntity.message = err.error.message ? [err.error.message] : (err.status == 403 ? ["Access Denied"] : ["Unknown Error Occoured!"]);
+                  this.dialogEntity.title = DialogType.ERROR;
+                  this.dialogEntity.type = DialogType.ERROR;
+                  this.dialog.open(ConfirmModalComponent, {
+                    width: 'fit-content',
+                    height: 'auto',
+                    hasBackdrop: true,
+                    maxHeight: '700px',
+                    data: this.dialogEntity
+                  });
+                });            
+          }
+        }
+      } 
+      this.duesGridApi.setDatasource(datasource);
     }
   }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatModalComponent } from './mat-modal.component';
+import { CreateDuesComponent } from './create-dues.component';
 
-describe('MatModalComponent', () => {
-  let component: MatModalComponent;
-  let fixture: ComponentFixture<MatModalComponent>;
+describe('CreateDuesComponent', () => {
+  let component: CreateDuesComponent;
+  let fixture: ComponentFixture<CreateDuesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MatModalComponent]
+      declarations: [CreateDuesComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MatModalComponent);
+    fixture = TestBed.createComponent(CreateDuesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
