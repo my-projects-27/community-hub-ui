@@ -41,6 +41,7 @@ import { TxnApprovalsComponent } from './components/txn-approvals/txn-approvals.
 import { CustomSelectRendererComponent } from './shared/custom-select-renderer/custom-select-renderer.component';
 import { CustomTextRendererComponent } from './shared/custom-text-renderer/custom-text-renderer.component';
 import { CreateDuesComponent } from './components/create-dues/create-dues.component';
+import { CashRecieptComponent } from './components/cash-reciept/cash-reciept.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { CreateDuesComponent } from './components/create-dues/create-dues.compon
     TxnApprovalsComponent,
     CustomSelectRendererComponent,
     CustomTextRendererComponent,
-    CreateDuesComponent
+    CreateDuesComponent,
+    CashRecieptComponent
   ],
   imports: [
     BrowserModule,

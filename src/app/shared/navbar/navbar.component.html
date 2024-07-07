@@ -8,7 +8,9 @@
     </mat-toolbar-row>
     <mat-toolbar-row class="mat-elevation-z8 sub-toolbar" *ngIf="authService.userDetails.accessToken">
         <div style="display: flex;width: 100%;justify-content: center;">
-            <a routerLink="/search-family" routerLinkActive="active" mat-button>Family Search</a>
+            <a routerLink="/dashboard" routerLinkActive="active" mat-button>Dashboard</a>
+            <a routerLink="/cash-reciept" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Cash Reciept Window</a>
+            <a routerLink="/search-family" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Family Search</a>
             <a routerLink="/view-family" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Family View</a>
             <a routerLink="/create-family" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Create Family</a>
             <a routerLink="/txns-register" routerLinkActive="active" mat-button><span class="custom-verticalbar">|</span>Txns Register</a>

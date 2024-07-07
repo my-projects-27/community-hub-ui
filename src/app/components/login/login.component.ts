@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequest).subscribe((res) => {
       this.authService.userDetails = res;
       this.dropdownService.getDropdowns();
-      this.router.navigate(['/search-family']);
+      this.router.navigate(['/dashboard']);
     },err=>{
       this.dialogEntity = new DialogEntity();
       this.dialogEntity.message = err.error.message? [err.error.message] : (err.status==403?["Access Denied"]:["Unknown Error Occoured!"]);

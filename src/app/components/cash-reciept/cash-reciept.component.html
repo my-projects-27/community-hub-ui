@@ -1,0 +1,93 @@
+<div class="row" style="margin-bottom: -15px;">
+    <div class="col-3">
+        <mat-form-field>
+            <input matInput placeholder="Select Family" [matAutocomplete]="auto" [(ngModel)]="searchTerm" (input)="autocompleteFamily()">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+              <mat-option *ngFor="let option of famlies" [value]="option">
+                {{option.value}} ({{ option.id }})
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+    </div>
+    <div class="col-3">
+        <mat-form-field >
+            <mat-label>Family Name</mat-label>
+            <input matInput type="string" [(ngModel)]="cashReceipt.familyName" name="familyName" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-3">
+        <mat-form-field color="primary">
+            <mat-label>Transaction Date</mat-label>
+            <input name="txnDate" matInput [matDatepicker]="picker2" [value]="cashReceipt.txnDate | date: 'yyyy-MM-dd'" (dateChange)="onDateChange($event)">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row" style="margin-bottom: -15px;">
+    <div class="col-3">
+        <mat-form-field >
+            <mat-label>Transaction Ref</mat-label>
+            <input matInput type="string" [(ngModel)]="cashReceipt.txnRefNo" name="txnRef">
+        </mat-form-field>
+    </div>
+    <div class="col-3">
+        <mat-form-field >
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" [(ngModel)]="cashReceipt.amount" name="amount" disabled>
+        </mat-form-field>
+    </div>
+    <div class="col-3">
+        <mat-form-field >
+            <mat-label>Remarks</mat-label>
+            <input matInput type="string" [(ngModel)]="cashReceipt.comment" name="remarks">
+        </mat-form-field>
+    </div>
+</div>
+
+<table class="table" *ngIf="cashReceipt.familyCode">
+    <thead>
+        <tr class="row">
+            <th class="col-3">Account</th>
+            <th class="col-2">Paying</th>
+            <th class="col-2">Due Amount</th>
+            <th class="col-2">Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let txn of cashReceipt.transaction;let i=index" class="row" style="margin-bottom: -35px;border-bottom: white;"> 
+            <td class="col-3">
+                <mat-form-field appearance="fill">
+                    <mat-select name="accounts{{i}}" [(ngModel)]="txn.accountId" disabled>
+                        <mat-option [value]="child.id"  *ngFor="let child of accountService.accounts">{{child.code}} - {{child.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td class="col-2">
+                <mat-form-field >
+                    <input matInput type="number" [(ngModel)]="txn.amount" name="amount{{i}}" (change)="amountChange(txn)">
+                </mat-form-field>
+            </td>
+            <td class="col-2">
+                <mat-form-field >
+                    <input matInput type="number" [(ngModel)]="txn.dueAmount" name="dueAmount{{i}}" disabled>
+                </mat-form-field>
+            </td>
+            <td class="col-2">
+                <mat-form-field >
+                    <input matInput type="number" [(ngModel)]="txn.balanceAmount" name="balanceAmount{{i}}" disabled>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr class="row" style="font-weight: 900;">
+            <td class="col-3" style="justify-content: flex-end;display: flex;">Total :</td>
+            <td class="col-2" style="padding-left: 25px;">{{cashReceipt.amount}}</td>
+            <td class="col-2" style="padding-left: 25px;">{{cashReceipt.totalDueAmount}}</td>
+            <td class="col-2" style="padding-left: 25px;">{{cashReceipt.totalBalanceAmount}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="row">
+    <button mat-raised-button color="primary" class="search-button" (click)="clearAllDues()" style="margin-right: 10px;" [disabled]="!cashReceipt.familyCode">Clear All Dues</button>
+    <button mat-raised-button color="primary" class="search-button" (click)="confirmSaveReceipt()" [disabled]="!cashReceipt.familyCode">Submit Receipt</button>
+</div>

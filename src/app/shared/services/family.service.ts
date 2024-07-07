@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { DuesSearchDto, Family, FamilyDue, FamilySearch } from '../../models/family.model';
+import { DuesSearchDto, DuesSummaryDto, Family, FamilyDue, FamilySearch } from '../../models/family.model';
 import { CustomResponse } from '../../models/config.model';
 import { DropdownObject } from '../../models/dropdown.model';
 
@@ -45,5 +45,9 @@ export class FamilyService {
   }
   countSearchFamilyDues(familyDuesDto:DuesSearchDto){
     return this.http.post<{count:0}>(`${this.authService.API_URL}family/search-count-dues`,familyDuesDto,this.authService.getHeaders());
+  }
+
+  getDuesSumarryFamilyById(familyId:string){
+    return this.http.get<DuesSummaryDto>(`${this.authService.API_URL}family/dues-summary?familyId=${familyId}`,this.authService.getHeaders());
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { CustomResponse, ResponseType } from '../../models/config.model';
-import { TXnsProcessDto, Transaction, TransactionSearchDto } from '../../models/transaction.model';
+import { CashReceiptDto, TXnsProcessDto, Transaction, TransactionSearchDto } from '../../models/transaction.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,9 @@ export class TransactionsService {
 
   processTransactions(txns:TXnsProcessDto[]){
     return this.http.post<CustomResponse>(`${this.authService.API_URL}txns/process-transaction`,txns,this.authService.getHeaders())
+  }
+
+  saveCashReceipt(cashReceipt:CashReceiptDto){
+    return this.http.post<CustomResponse>(`${this.authService.API_URL}txns/save-cash-receipt`,cashReceipt,this.authService.getHeaders())
   }
 }
