@@ -16,6 +16,8 @@ export class Transaction {
     verifiedAt:string="";
     accountId!:number;
     familyTxnAllowed:boolean=false;
+    dueAmount:number=0;
+    balanceAmount:number=0;
 }
 
 export class TransactionSearchDto{
@@ -43,4 +45,16 @@ export class TXnsProcessDto{
     transactionId!:number;
     status!:string; 
     remarks:string="";
+}
+
+export class CashReceiptDto{
+    familyCode:string="";
+    comment:string="";
+    txnRefNo:string="";
+    txnDate:string="";
+    familyName:string="";
+    amount:number=0;
+    totalDueAmount:number=0;
+    totalBalanceAmount:number=0;
+    transaction:Transaction[]=[];
 }

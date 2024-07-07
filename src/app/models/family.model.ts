@@ -5,6 +5,7 @@ export class Family{
     familyId:string="";
     unitId!:string;
     unitName:String="";
+    totalDues:number=0;
     unitNameInLocal:String="";
     wardNumber:String="";
     bankWardNumber:String="";
@@ -94,4 +95,10 @@ export class DuesSearchDto{
     offset:number=0;
     sortBy:string="";
     sortOrder:string="";
+}
+
+export class DuesSummaryDto{
+    familyId:string="";
+    totalDueAmount:number=0;
+    amountDueMap:any;
 }

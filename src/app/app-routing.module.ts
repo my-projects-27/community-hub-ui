@@ -10,9 +10,12 @@ import { ViewFamilyComponent } from './components/view-family/view-family.compon
 import { TxnCreationComponent } from './components/txn-creation/txn-creation.component';
 import { TxnsRegisterComponent } from './components/txns-register/txns-register.component';
 import { TxnApprovalsComponent } from './components/txn-approvals/txn-approvals.component';
+import { CashRecieptComponent } from './components/cash-reciept/cash-reciept.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
+  { path: 'dashboard', component: WelcomeComponent , pathMatch: 'full',canActivate: [AuthGuard]},
+  { path: 'cash-reciept', component: CashRecieptComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'search-family', component: FamilySearchComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'view-family', component: ViewFamilyComponent , pathMatch: 'full',canActivate: [AuthGuard]},
   { path: 'create-family', component: CreateFamilyComponent , pathMatch: 'full',canActivate: [AuthGuard]},

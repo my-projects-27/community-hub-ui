@@ -15,14 +15,6 @@
 <hr>
 <div class="row">
     <div class="col-2">
-        <mat-form-field appearance="fill">
-            <mat-label>Unit</mat-label>
-            <mat-select [(ngModel)]="family.unitId" name="unitId" disabled>
-              <mat-option *ngFor="let u of dropdownService.unitList" [value]="u.id">{{u.value}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div class="col-2">
         <mat-form-field >
             <mat-label>Family Number</mat-label>
             <input matInput [(ngModel)]="family.familyId" name="familyId" disabled>
@@ -39,6 +31,18 @@
             <mat-label>Family Name In Malyalam</mat-label>
             <input matInput name="familyNameLocal" [(ngModel)]="family.familyNameLocal" disabled>
         </mat-form-field>
+    </div>
+    <div class="col-2">
+        <mat-form-field >
+            <mat-label>Total Dues</mat-label>
+            <input matInput [(ngModel)]="family.totalDues" name="totalDues" disabled>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>Unit</mat-label>
+            <mat-select [(ngModel)]="family.unitId" name="unitId" disabled>
+              <mat-option *ngFor="let u of dropdownService.unitList" [value]="u.id">{{u.value}}</mat-option>
+            </mat-select>
+        </mat-form-field> -->
     </div>
     <div class="col-2">
         <mat-form-field >
