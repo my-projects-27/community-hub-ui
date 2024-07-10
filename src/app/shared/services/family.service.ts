@@ -50,4 +50,7 @@ export class FamilyService {
   getDuesSumarryFamilyById(familyId:string){
     return this.http.get<DuesSummaryDto>(`${this.authService.API_URL}family/dues-summary?familyId=${familyId}`,this.authService.getHeaders());
   }
+  deleteFamilyDueById(id:number){
+    return this.http.get<CustomResponse>(`${this.authService.API_URL}family/delete-due?dueId=${id}`,this.authService.getHeaders())
+  }
 }

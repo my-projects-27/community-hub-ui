@@ -1,75 +1,77 @@
-<div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <div class="row">
-            <div class="col-3">
-                <mat-form-field >
-                    <mat-label>Account</mat-label>
-                    <mat-select name="accounts" [(ngModel)]="selectedAccount" (selectionChange)="onAccountSelect()">
-                        <mat-option [value]="child"  *ngFor="let child of accountService.accounts">{{child.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-3">
-                <mat-form-field >
-                    <mat-label>Transaction Type</mat-label>
-                    <mat-select [(ngModel)]="transaction.txnType" name="txnType" [disabled]="selectedAccount.type!='BOTH'">
-                        <mat-option [value]="child" *ngFor="let child of txnTypes">{{child}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-3">
-                <mat-form-field color="primary">
-                    <mat-label>Transaction Date</mat-label>
-                    <input name="txnDate" matInput [matDatepicker]="picker2" [value]="transaction.txnDate | date: 'yyyy-MM-dd'" (dateChange)="onDateChange($event)">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="col-3">
-                <mat-form-field >
-                    <mat-label>Transaction Ref</mat-label>
-                    <input matInput type="string" [(ngModel)]="transaction.txnRef" name="txnRef">
-                </mat-form-field>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <div class="row">
-            <div class="col-3">
-                <mat-form-field>
-                    <input matInput placeholder="Search Family" [matAutocomplete]="auto" [(ngModel)]="searchTerm" (input)="autocompleteFamily()" [disabled]="!transaction.familyTxnAllowed">
-                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
-                      <mat-option *ngFor="let option of famlies" [value]="option">
-                        {{option.value}} ({{ option.id }})
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-            </div>
-            <div class="col-3">
-                <mat-form-field >
-                    <mat-label>Family Name</mat-label>
-                    <input matInput type="string" [(ngModel)]="transaction.familyName" name="familyName" disabled>
-                </mat-form-field>
-            </div>
-            <div class="col-3">
-                <mat-form-field >
-                    <mat-label>Amount</mat-label>
-                    <input matInput type="number" [(ngModel)]="transaction.amount" name="amount">
-                </mat-form-field>
-            </div>
-            <div class="col-3">
-                <mat-form-field >
-                    <mat-label>Remarks</mat-label>
-                    <input matInput type="string" [(ngModel)]="transaction.remarks" name="remarks">
-                </mat-form-field>
+<div class="custom-wrapper">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Account</mat-label>
+                        <mat-select name="accounts" [(ngModel)]="selectedAccount" (selectionChange)="onAccountSelect()">
+                            <mat-option [value]="child"  *ngFor="let child of accountService.accounts">{{child.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Transaction Type</mat-label>
+                        <mat-select [(ngModel)]="transaction.txnType" name="txnType" [disabled]="selectedAccount.type!='BOTH'">
+                            <mat-option [value]="child" *ngFor="let child of txnTypes">{{child}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field color="primary">
+                        <mat-label>Transaction Date</mat-label>
+                        <input name="txnDate" matInput [matDatepicker]="picker2" [value]="transaction.txnDate | date: 'yyyy-MM-dd'" (dateChange)="onDateChange($event)">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Transaction Ref</mat-label>
+                        <input matInput type="string" [(ngModel)]="transaction.txnRef" name="txnRef">
+                    </mat-form-field>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row save-button" >
-    <button mat-raised-button color="primary" style="width: 120px;" class="save-button" (click)="saveTransaction()">Save</button>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Search Family" [matAutocomplete]="auto" [(ngModel)]="searchTerm" (input)="autocompleteFamily()" [disabled]="!transaction.familyTxnAllowed">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+                          <mat-option *ngFor="let option of famlies" [value]="option">
+                            {{option.value}} ({{ option.id }})
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Family Name</mat-label>
+                        <input matInput type="string" [(ngModel)]="transaction.familyName" name="familyName" disabled>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Amount</mat-label>
+                        <input matInput type="number" [(ngModel)]="transaction.amount" name="amount">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Remarks</mat-label>
+                        <input matInput type="string" [(ngModel)]="transaction.remarks" name="remarks">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row save-button" >
+        <button mat-raised-button color="primary" style="width: 120px;" class="save-button" (click)="saveTransaction()">Save</button>
+    </div>
 </div>

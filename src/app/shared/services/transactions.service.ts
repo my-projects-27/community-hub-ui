@@ -30,4 +30,8 @@ export class TransactionsService {
   saveCashReceipt(cashReceipt:CashReceiptDto){
     return this.http.post<CustomResponse>(`${this.authService.API_URL}txns/save-cash-receipt`,cashReceipt,this.authService.getHeaders())
   }
+
+  deleteTransactionById(id:number){
+    return this.http.get<CustomResponse>(`${this.authService.API_URL}txns/delete-txn?txnId=${id}`,this.authService.getHeaders())
+  }
 }

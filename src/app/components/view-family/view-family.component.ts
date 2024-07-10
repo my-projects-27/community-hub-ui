@@ -11,6 +11,8 @@ import {IDatasource} from 'ag-grid-community';
 import { TransactionsService } from '../../shared/services/transactions.service';
 import { TransactionSearchDto } from '../../models/transaction.model';
 import { CreateDuesComponent } from '../create-dues/create-dues.component';
+import { CustomButtonRendererComponent } from '../../shared/custom-button-renderer/custom-button-renderer.component';
+import { CustomResponse, ResponseType } from '../../models/config.model';
 
 @Component({
   selector: 'app-view-family',
@@ -50,6 +52,7 @@ export class ViewFamilyComponent implements OnInit {
   { headerName: "Blood Group", field: 'bloodGroup',maxWidth:180  },
   ]
   gridColTxnDef: any[] = [
+  { headerName: "Delete", cellRenderer: CustomButtonRendererComponent, cellStyle: (params:any) =>{return {'margin-top':'5px'}},maxWidth:100},
   { headerName: 'Transaction ID', field: 'id',maxWidth:180  },
   { headerName: "Account",field:'accountName',maxWidth:180 },
   { headerName: 'Type', field: 'txnType',maxWidth:170 },
@@ -65,13 +68,15 @@ export class ViewFamilyComponent implements OnInit {
   { headerName: 'Verified At', field: 'verifiedAt' },
   ]
   gridColDuesDef: any[] = [
+    { headerName: "Delete", cellRenderer: CustomButtonRendererComponent, cellStyle: (params:any) =>{return {'margin-top':'5px'}},maxWidth:100},
     { headerName: 'Dues ID', field: 'id',maxWidth:130  },
     { headerName: "Account",field:'accountName' },
     { headerName: "Amount", field: 'amount',maxWidth:130 },
     { headerName: 'Due Date', field: 'date',maxWidth:170 },
     { headerName: 'description', field: 'description' },
     { headerName: "Created By", field: 'createdBy' },
-    { headerName: 'Created At', field: 'createdAt',maxWidth:140  }
+    { headerName: 'Created At', field: 'createdAt',maxWidth:140  },
+    
   ]
 
   gridOptions: GridOptions = {
@@ -89,6 +94,7 @@ export class ViewFamilyComponent implements OnInit {
     maxConcurrentDatasourceRequests:1,
     infiniteInitialRowCount:1,
     paginationPageSizeSelector:[10,25,50,100],
+    context : { componentParent: this }
   }
   gridDuesOptions: GridOptions = {
     getRowId: (params) => params.data.id,
@@ -101,6 +107,7 @@ export class ViewFamilyComponent implements OnInit {
     maxConcurrentDatasourceRequests:1,
     infiniteInitialRowCount:1,
     paginationPageSizeSelector:[10,25,50,100],
+    context : { componentParent: this }
   }
   constructor(public familyService: FamilyService,private txnService:TransactionsService, private dialog: MatDialog, public dropdownService: DropdownService,private router:Router) {
   }
@@ -110,6 +117,21 @@ export class ViewFamilyComponent implements OnInit {
     this.familyService.familyIdToView=""
     if (this.familyId) {
       this.searchFamily();
+    }
+  }
+
+  
+  deleteTransaction(id:number){
+    if(this.selectedTab==1){
+      this.txnService.deleteTransactionById(id).subscribe(res=>{
+        this.showSuccessDialog(res)
+        this.onTabChanged()
+      },err=>this.handleError(err))
+    }else if(this.selectedTab==2){
+      this.familyService.deleteFamilyDueById(id).subscribe(res=>{
+        this.showSuccessDialog(res)
+        this.onTabChanged()
+      },err=>this.handleError(err))
     }
   }
 
@@ -255,5 +277,42 @@ export class ViewFamilyComponent implements OnInit {
       } 
       this.duesGridApi.setDatasource(datasource);
     }
+  }
+
+  showSuccessDialog(res:CustomResponse){
+    this.dialogEntity = new DialogEntity();
+    this.dialogEntity.message = res.message;
+    if(ResponseType.SUCCESS == res.responseType){
+      this.dialogEntity.title = DialogType.SUCCESS;
+      this.dialogEntity.type = DialogType.SUCCESS;
+    }else{
+      this.dialogEntity.title = DialogType.ERROR;
+      this.dialogEntity.type = DialogType.ERROR;
+    }
+    this.dialog.open(ConfirmModalComponent, {
+      width: '100%',
+      maxWidth: '400px',
+      height: 'auto',
+      hasBackdrop: true,
+      maxHeight: '700px',
+      data: this.dialogEntity
+    });
+  }
+
+    handleError(err:any){
+    this.dialogEntity = new DialogEntity();
+    if(err.status==403){
+      this.dialogEntity.message = ["Access Denied"];
+    }else{
+      this.dialogEntity.message = err.error&&err.error.message? (err.error.responseType=="FORM_VALIDATION_ERROR"?err.error.message:[err.error.message]): ["Unknown Error Occoured!"];
+    }
+    this.dialogEntity.title = err.error&&err.error.responseType=="FORM_VALIDATION_ERROR"?DialogType.FORM_VALIDATION_ERROR:DialogType.ERROR;
+    this.dialogEntity.type = DialogType.ERROR;
+    this.dialog.open(ConfirmModalComponent, {
+      height: 'auto',
+      hasBackdrop: true,
+      maxHeight: '700px',
+      data: this.dialogEntity
+    });
   }
 }

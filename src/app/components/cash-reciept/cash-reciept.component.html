@@ -89,5 +89,6 @@
 </table>
 <div class="row">
     <button mat-raised-button color="primary" class="search-button" (click)="clearAllDues()" style="margin-right: 10px;" [disabled]="!cashReceipt.familyCode">Clear All Dues</button>
-    <button mat-raised-button color="primary" class="search-button" (click)="confirmSaveReceipt()" [disabled]="!cashReceipt.familyCode">Submit Receipt</button>
+    <button mat-raised-button color="primary" class="search-button" (click)="confirmSaveReceipt()"style="margin-right: 10px;" [disabled]="!cashReceipt.familyCode">Submit Receipt</button>
+    <button mat-raised-button color="primary" class="search-button" (click)="openTxnRegister()">History</button>
 </div>

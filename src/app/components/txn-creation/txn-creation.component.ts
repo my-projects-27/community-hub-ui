@@ -77,6 +77,8 @@ export class TxnCreationComponent implements OnInit{
   saveTransaction(){
     this.txnsService.saveTransaction(this.transaction).subscribe(res=>{
       this.showSuccessDialog(res);
+      this.transaction=new Transaction();
+      this.selectedAccount=new AccountHead();
     },err=>this.handleError(err));
   }
 
