@@ -14,6 +14,12 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
   }
 
+  isFamilyRouteActive(): boolean {
+    return this.router.url.includes('/search-family') || 
+           this.router.url.includes('/view-family') || 
+           this.router.url.includes('/create-family');
+  }
+  
   configVisible():boolean{
     return this.authService.userDetails.user&&this.authService.userDetails.user.authorities.findIndex(a=>a.authority=="ADMIN")!=-1
   }

@@ -42,7 +42,7 @@
                     <div class="col-3">
                         <mat-form-field >
                             <mat-label>Family Name</mat-label>
-                            <input matInput name="familyName" [(ngModel)]="family.familyName">
+                            <input matInput name="familyName" [(ngModel)]="family.familyName" (change)="updatePermAddress()">
                         </mat-form-field>
                     </div>
                     <div class="col-3">
@@ -81,7 +81,7 @@
                     <div class="col-3">
                         <mat-form-field >
                             <mat-label>Post Office</mat-label>
-                            <input matInput name="postOffice" [(ngModel)]="family.postOffice">
+                            <input matInput name="postOffice" [(ngModel)]="family.postOffice" (change)="updatePermAddress()">
                         </mat-form-field>
                     </div>
                     <div class="col-3">

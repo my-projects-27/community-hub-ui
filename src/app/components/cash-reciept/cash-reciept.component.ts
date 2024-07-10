@@ -12,6 +12,7 @@ import { ConfirmModalComponent } from '../../shared/modals/confirm-modal/confirm
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DuesSummaryDto } from '../../models/family.model';
 import { CustomResponse, ResponseType } from '../../models/config.model';
+import { TxnsRegisterComponent } from '../txns-register/txns-register.component';
 
 @Component({
   selector: 'app-cash-reciept',
@@ -101,6 +102,9 @@ export class CashRecieptComponent {
   }
 
   amountChange(txn:Transaction){
+    if(!txn.amount){
+      txn.amount=0
+    }
     txn.balanceAmount=txn.dueAmount-txn.amount;
     this.cashReceipt.totalBalanceAmount=0;
     this.cashReceipt.amount=0;
@@ -160,6 +164,13 @@ export class CashRecieptComponent {
       hasBackdrop: true,
       maxHeight: '700px',
       data: this.dialogEntity
+    });
+  }
+
+  openTxnRegister(){
+    this.dialog.open(TxnsRegisterComponent, {
+      height: 'auto',
+      hasBackdrop: true
     });
   }
 }

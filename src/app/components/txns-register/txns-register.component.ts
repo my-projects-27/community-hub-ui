@@ -7,6 +7,8 @@ import { DialogEntity, DialogType } from '../../models/modals.model';
 import { ConfirmModalComponent } from '../../shared/modals/confirm-modal/confirm-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { CustomButtonRendererComponent } from '../../shared/custom-button-renderer/custom-button-renderer.component';
+import { CustomResponse, ResponseType } from '../../models/config.model';
 
 @Component({
   selector: 'app-txns-register',
@@ -22,6 +24,7 @@ export class TxnsRegisterComponent {
     dialogEntity: DialogEntity = new DialogEntity();
 
     gridColTxnDef: any[] = [
+      { headerName: "Delete", cellRenderer: CustomButtonRendererComponent, cellStyle: (params:any) =>{return {'margin-top':'5px'}},maxWidth:100},
       { headerName: 'Transaction ID', field: 'id',maxWidth:180  },
       { headerName: "Account",field:'accountName',maxWidth:180 },
       { headerName: 'Type', field: 'txnType',maxWidth:170 },
@@ -53,10 +56,17 @@ export class TxnsRegisterComponent {
       maxConcurrentDatasourceRequests:1,
       infiniteInitialRowCount:1,
       paginationPageSizeSelector:[10,25,50,100],
+      context : { componentParent: this }
     }
 
     constructor(private dialog: MatDialog,private txnService:TransactionsService,private datePipe: DatePipe){}
 
+    deleteTransaction(id:number){
+      this.txnService.deleteTransactionById(id).subscribe(res=>{
+        this.showSuccessDialog(res)
+        this.searchTransactions()
+      },err=>this.handleError(err))
+    }
     async onTxnGridReady(params:any){
       this.txnGridApi=params.api;
       this.txnGridApi.hideOverlay();
@@ -111,5 +121,42 @@ export class TxnsRegisterComponent {
         }
       } 
       this.txnGridApi.setDatasource(datasource);
+    }
+
+    showSuccessDialog(res:CustomResponse){
+      this.dialogEntity = new DialogEntity();
+      this.dialogEntity.message = res.message;
+      if(ResponseType.SUCCESS == res.responseType){
+        this.dialogEntity.title = DialogType.SUCCESS;
+        this.dialogEntity.type = DialogType.SUCCESS;
+      }else{
+        this.dialogEntity.title = DialogType.ERROR;
+        this.dialogEntity.type = DialogType.ERROR;
+      }
+      this.dialog.open(ConfirmModalComponent, {
+        width: '100%',
+        maxWidth: '400px',
+        height: 'auto',
+        hasBackdrop: true,
+        maxHeight: '700px',
+        data: this.dialogEntity
+      });
+    }
+  
+      handleError(err:any){
+      this.dialogEntity = new DialogEntity();
+      if(err.status==403){
+        this.dialogEntity.message = ["Access Denied"];
+      }else{
+        this.dialogEntity.message = err.error&&err.error.message? (err.error.responseType=="FORM_VALIDATION_ERROR"?err.error.message:[err.error.message]): ["Unknown Error Occoured!"];
+      }
+      this.dialogEntity.title = err.error&&err.error.responseType=="FORM_VALIDATION_ERROR"?DialogType.FORM_VALIDATION_ERROR:DialogType.ERROR;
+      this.dialogEntity.type = DialogType.ERROR;
+      this.dialog.open(ConfirmModalComponent, {
+        height: 'auto',
+        hasBackdrop: true,
+        maxHeight: '700px',
+        data: this.dialogEntity
+      });
     }
 }

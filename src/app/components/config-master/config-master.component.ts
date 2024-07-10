@@ -26,7 +26,7 @@ export class ConfigMasterComponent implements OnInit{
 
   dialogEntity: DialogEntity = new DialogEntity();
   staticTypes:DropdownObject[]= staticTypes;
-  txnTypes:string[]=["PAYMENTS","RECEIPTS","BOTH"];
+  txnTypes:string[]=["PAYMENT","RECEIPT","BOTH"];
 
   constructor(private dropdownService:DropdownService,private dialog: MatDialog,private accountService:AccountsService) { }
 
@@ -115,7 +115,7 @@ export class ConfigMasterComponent implements OnInit{
     if(err.status==403){
       this.dialogEntity.message = ["Access Denied"];
     }else{
-      this.dialogEntity.message = err.error&&err.error.message? err.error.message : "Unknown Error Occoured!";
+      this.dialogEntity.message = [err.error&&err.error.message? err.error.message : "Unknown Error Occoured!"];
     }
     this.dialogEntity.title = err.error&&err.error.responseType=="FORM_VALIDATION_ERROR"?DialogType.FORM_VALIDATION_ERROR:DialogType.ERROR;
     this.dialogEntity.type = DialogType.ERROR;

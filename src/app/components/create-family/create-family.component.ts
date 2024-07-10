@@ -123,4 +123,8 @@ export class CreateFamilyComponent implements OnInit{
       data: this.dialogEntity
     });
   }
+
+  updatePermAddress(){
+    this.family.permanentAddress=this.family.familyName+", "+this.family.postOffice
+  }
 }

@@ -24,6 +24,7 @@ export class CreateDuesComponent implements OnInit{
 
   ngOnInit(): void {
     var acc=new AccountSearchDto();
+    acc.isFamilyTxnAllowed="Y"
     acc.pageSize=1000;
     acc.offset=0;
     this.familyDue.familyId=this.familyData.familyId;

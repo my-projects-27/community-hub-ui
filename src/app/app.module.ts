@@ -8,7 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './components/login/login.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -22,7 +22,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { CreateFamilyComponent } from './components/create-family/create-family.component';
-import { MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MemberComponent } from './components/member/member.component';
@@ -42,6 +42,9 @@ import { CustomSelectRendererComponent } from './shared/custom-select-renderer/c
 import { CustomTextRendererComponent } from './shared/custom-text-renderer/custom-text-renderer.component';
 import { CreateDuesComponent } from './components/create-dues/create-dues.component';
 import { CashRecieptComponent } from './components/cash-reciept/cash-reciept.component';
+import { CustomButtonRendererComponent } from './shared/custom-button-renderer/custom-button-renderer.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MY_DATE_FORMATS } from './shared/constants';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,8 @@ import { CashRecieptComponent } from './components/cash-reciept/cash-reciept.com
     CustomSelectRendererComponent,
     CustomTextRendererComponent,
     CreateDuesComponent,
-    CashRecieptComponent
+    CashRecieptComponent,
+    CustomButtonRendererComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,16 +77,18 @@ import { CashRecieptComponent } from './components/cash-reciept/cash-reciept.com
     MatInputModule,MatCardTitle,
     HttpClientModule,FormsModule,MatDialogModule,
     MatDialogContent,MatDialogActions,MatDialogTitle,MatDialogClose,
-    MatSidenavModule,MatListModule,AgGridModule,
+    MatSidenavModule,MatListModule,AgGridModule,MatMenuModule,
     MatOptionModule,MatSelectModule,MatCheckboxModule,MatFormFieldModule, 
-    MatTabsModule,MatRadioModule,MatDatepickerModule,MatAutocompleteModule
+    MatTabsModule,MatRadioModule,MatDatepickerModule,MatAutocompleteModule,MatNativeDateModule
   ],
   providers: [
     AuthService,DropdownService,DatePipe,
     {provide: ErrorHandler, useClass: MyErrorHandler},
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideNativeDateAdapter()
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, // Set locale to 'en-GB' for dd-MM-yyyy format
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS } // Custom date formats
   ],
   bootstrap: [AppComponent]
 })
